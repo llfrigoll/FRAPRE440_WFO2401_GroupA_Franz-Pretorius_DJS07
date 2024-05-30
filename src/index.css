@@ -60,7 +60,10 @@ main {
 }
 
 .meme {
+  display: flex;
   position: relative;
+  margin: auto;
+  justify-content: center;
 }
 
 .meme--image {

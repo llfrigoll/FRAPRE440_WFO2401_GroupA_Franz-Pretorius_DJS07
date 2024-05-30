@@ -3,7 +3,6 @@ import memesData from '../memesData.jsx'
 
 //Form section of the app
 export default function Meme() {
-
     //Object that is destructured into meme, which is the state and setMeme, which is the dispatch function
     const [meme, setMeme] = React.useState({
         topText: '',
@@ -26,6 +25,16 @@ export default function Meme() {
         }))
     }
 
+    //Function that takes 'topText' or 'bottomText' as the name and the actual user input as the value and uses setMeme to set the current meme's
+    //top and bottom text
+    function handleChange(event) {
+        const {name, value} = event.target
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            [name]: value
+        }))
+    }
+
     return (
         <main>
             <div className="form">
@@ -33,11 +42,17 @@ export default function Meme() {
                     type="text"
                     placeholder="Top text"
                     className="form--input"
+                    name="topText"
+                    value={meme.topText}
+                    onChange={handleChange}
                 />
                 <input 
                     type="text"
                     placeholder="Bottom text"
                     className="form--input"
+                    name="bottomText"
+                    value={meme.bottomText}
+                    onChange={handleChange}
                 />
                 <button 
                     className="form--button"
@@ -46,7 +61,11 @@ export default function Meme() {
                     Get a new meme image 🖼
                 </button>
             </div>
-            <img src={meme.randomImage} className='meme--image'/>
+            <div className="meme">
+                <img src={meme.randomImage} className="meme--image" />
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
+            </div>
         </main>
     )
 }
