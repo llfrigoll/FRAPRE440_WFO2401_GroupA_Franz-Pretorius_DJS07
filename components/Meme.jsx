@@ -15,9 +15,12 @@ export default function Meme() {
     //Using use effect to initiate an api call to get an object containing memes,
     //whereafter setAllMemes is called with the memes array inside the object
     React.useEffect(() => {
-        fetch("https://api.imgflip.com/get_memes")
-            .then(res => res.json())
-            .then(data => setAllMemes(data.data.memes))
+        async function getMemes() {
+            const res = await fetch("https://api.imgflip.com/get_memes")
+            const data = await res.json()
+            setAllMemes(data.data.memes)
+        }
+        getMemes()
     }, [])
 
     //Function that generates a random number and uses that number to select a random meme from the array,
