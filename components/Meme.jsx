@@ -4,15 +4,26 @@ import memesData from '../memesData.jsx'
 //Form section of the app
 export default function Meme() {
 
-    //Variable holding the destructured current state and its dispatch function
-    const [memeImage, setMemeImage] = React.useState("https://i.imgflip.com/1g8my4.jpg")
+    //Object that is destructured into meme, which is the state and setMeme, which is the dispatch function
+    const [meme, setMeme] = React.useState({
+        topText: '',
+        bottomText: '',
+        randomImage: 'https://i.imgflip.com/1g8my4.jpg'
+    })
+
+    //Array of memes destructured into a state and its dispatch function
+    const [allMemeImages, setAllMemeImages] = React.useState(memesData)
 
     //Function that grabs all the memes from the array, generates a random number and uses that number to select a random meme from the array,
-    //thereafter it sets the current state to that random meme
+    //thereafter it uses setMeme to get the current meme and change its url to the new meme's url
     function getMemeImage() {
-        const memesArray = memesData.data.memes
+        const memesArray = allMemeImages.data.memes
         const randomNumber = Math.floor(Math.random() * memesArray.length)
-        setMemeImage(memesArray[randomNumber].url)
+        const url = memesArray[randomNumber].url
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            randomImage: url
+        }))
     }
 
     return (
@@ -35,7 +46,7 @@ export default function Meme() {
                     Get a new meme image 🖼
                 </button>
             </div>
-            <img src={memeImage} className='meme--image'/>
+            <img src={meme.randomImage} className='meme--image'/>
         </main>
     )
 }
