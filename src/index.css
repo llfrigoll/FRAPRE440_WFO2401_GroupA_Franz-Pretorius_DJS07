@@ -35,6 +35,11 @@ main {
   font-weight: 500;
 }
 
+main {
+  display: flex;
+  justify-content: center;
+}
+
 .form {
   display: grid;
   grid-template: 40px 40px / 1fr 1fr;
